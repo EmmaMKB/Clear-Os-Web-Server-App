@@ -80,8 +80,8 @@ foreach ($sites as $site => $info) {
             array(
                 anchor_edit('/app/web_server/sites/' . $edit_link . '/' . $site, 'high'),
                 anchor_delete('/app/web_server/sites/delete/' . $site, 'high'),
-                anchor('web_server/sites/create_user_ini/' . $info['ShareDir'], 'Create'),
-                anchor('web_server/sites/verify_file/' . $info['ShareDir'], 'Verifie')
+                anchor('web_server/sites/create_user_ini/' . $info['ShareDir'], 'Create .user.ini'),
+                anchor('web_server/sites/verify_file/' . $info['ShareDir'], 'Create phpinfo.php file')
             )
         );
     }
@@ -125,41 +125,7 @@ echo summary_table(
     $headers,
     $items
 );
-?>
-<div id="text-editor" style="visibility:hidden;height:0px;">
-    <textarea rows="15" id="editor" class="form-control" ></textarea>
-    <button class="btn btn-primary"> Save</button>
-</div>
 
-<script type="text/javascript">
-            function createFileIfNotExist(sitePath) {
-                document.getElementById("text-editor").style.visibility = "visible";
-                document.getElementById("text-editor").style.height = "auto";
-                $.ajax({
-                    url : "<?php echo "https://".$_SERVER['HTTP_HOST']."/app/"; ?>",
-                    type : 'POST',
-                    dataType : 'text',
-                    success : function(data) {
-                        alert(data);
-                    },
-                    error : function(data,code,statut) {
-              console.log($.ajax);
 
-                        console.log(data);
-                        console.log(code);
-                        console.log(statut);
-                    }  
-                });
-            }
 
-            function dismissEditor() {
-                document.getElementById("editor").style.visibility = "hidden";
-            }
-
-        </script>
-<script type="text/javascript">
-    function test(params) {
-       alert(params); 
-    }
-</script>
 
