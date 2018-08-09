@@ -62,7 +62,6 @@ class Sites extends ClearOS_Controller
      * @return vi echo $site . "/" . $deux . "/" . $troi . "/" . $t;ew
      */
 
-    private $chemin;
 
     function index()
     {
@@ -131,52 +130,72 @@ class Sites extends ClearOS_Controller
 
 
     // La fonction qui cree un fichier
-    function save_file($site, $deux, $troi, $site_url) {
-
-        $chemin = "/" . $site . "/" . $deux . "/" . $troi . "/" . $site_url . "/.user.ini";
+    function save_file() {
+        $path = $this->input->post('path');
         $texte = $this->input->post('editor_text');
 
         try {
-            $fichier = new SplFileObject($chemin, "w");
+            $fichier = new SplFileObject($path, "w");
             $fichier->fwrite($texte);
-
-            // Si l'ecriture dans le fichier s'est bien passer on retourne a la vue principal
-            $this->page->view_form("sites");
+            $fichier = null;
+            $this->page->view_form("web_server/sites");
 
         } catch(Exception $e) {
+            var_dump($e);die;
+            $this->page->view_form("app");
+        }
+    }
 
+
+    // La methode qui affiche l'editeur des textes
+
+    function create_user_ini($site, $deux, $troi, $site_url)
+    {
+        $data['path'] = "/" . $site . "/" . $deux . "/" . $troi . "/" . $site_url."/.user.ini";
+        try {
+            $file = null;
+            $content = "";
+            if (file_exists($data['path']))
+            {
+                $file = new SplFileObject($data['path'], "a+");
+                $content = file_get_contents($data['path']);;
+                $data['content'] = $content;
+            }
+            $file = null;
+            $this->page->view_form("editor", $data);
+        } catch(Exception $e) {
             $this->page->view_form("error_view");
         }
     }
 
-    //verification de l'existance du fichier user ini
-    function verify_file($site,$deux, $troi, $site_url, $file_name){
-        $chemin = "/". $site . "/" . $deux ."/".$troi."/". $site_url ."/.user.ini";
-        $texte = $this->input->post('editor_text');
-        if($chemin == true){
-            try{
-                $file_name = new SplFileObject($chemin, "r+");
-                //$file_name = fopen($texte, "r+");
-                $resultat = fread($chemin, filesize('.user.ini'));
-                echo($resultat);
-                $this->page->view_form("sites");
-                echo('c est bien');
-                
-            }catch(Exception $e){
-                $this->page->view_form("error_view");
-            }
-        }else{
-            echo 'jambo';
+    function create_php_info($site, $deux, $troi, $site_url)
+    {
+        $path = "/" . $site . "/" . $deux . "/" . $troi . "/" . $site_url . "/phpinfo.php";
+        $text = "<?php\nphpinfo()\n?>";
+        try {
+            $fichier = new SplFileObject($path, "w");
+            $fichier->fwrite($text);
+            $this->page->view_form("success_view");
+
+        } catch(Exception $e) {
+            $this->page->view_form("error_view");
         }
     }
 
-    // La methode qui affiche l'editeur des textes
-    function create_user_ini($site, $deux, $troi, $site_url)
+    function set_owner_to_apache($site, $deux, $troi, $site_url)
     {
-        $data['chemin'] = "/" . $site . "/" . $deux . "/" . $troi . "/" . $site_url;
-        $this->page->view_form("editor", $data);
-    }
+        $path = "/" . $site . "/" . $deux . "/" . $troi . "/" . $site_url . "/";
+        try
+        {
+            chown($path,"apache");
+            echo "a";
+        }
+        catch (Exception $e)
+        {
+            echo "e";
+        }
 
+    }
 
     /**
      * Edit view.

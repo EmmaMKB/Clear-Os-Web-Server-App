@@ -80,8 +80,9 @@ foreach ($sites as $site => $info) {
             array(
                 anchor_edit('/app/web_server/sites/' . $edit_link . '/' . $site, 'high'),
                 anchor_delete('/app/web_server/sites/delete/' . $site, 'high'),
-                anchor('web_server/sites/create_user_ini/' . $info['ShareDir'], 'Create .user.ini'),
-                anchor('web_server/sites/verify_file/' . $info['ShareDir'], 'Create phpinfo.php file')
+                anchor('web_server/sites/create_user_ini/' . $info['ShareDir'], lang('create_user_ini'), 'class="btn"'),
+                anchor('web_server/sites/create_php_info/' . $info['ShareDir'], lang('create_php_info'), 'class="btn"'),
+                anchor('web_server/sites/set_owner_to_apache/' . $info['ShareDir'], lang('set_owner_to_apache'), 'class="btn"')
             )
         );
     }
