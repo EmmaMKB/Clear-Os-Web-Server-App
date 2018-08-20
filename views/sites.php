@@ -45,6 +45,7 @@ $headers = array(
     lang('web_server_web_site'),
     lang('web_server_upload_access'),
     lang('groups_group'),
+    lang('web_server_aliases')
 );
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -76,13 +77,12 @@ foreach ($sites as $site => $info) {
         );
     } else {
         $detail_buttons = button_set(
-
             array(
                 anchor_edit('/app/web_server/sites/' . $edit_link . '/' . $site, 'high'),
                 anchor_delete('/app/web_server/sites/delete/' . $site, 'high'),
-                anchor('web_server/sites/create_user_ini/' . $info['ShareDir'], lang('create_user_ini'), 'class="btn"'),
-                anchor('web_server/sites/create_php_info/' . $info['ShareDir'], lang('create_php_info'), 'class="btn"'),
-                anchor('web_server/sites/set_owner_to_apache/' . $info['ShareDir'], lang('set_owner_to_apache'), 'class="btn"')
+                anchor('web_server/sites/create_user_ini/' . $info['ShareDir'], lang('create_user_ini'), 'class="btn btn-primary"'),
+                anchor('web_server/sites/create_php_info/' . $info['ShareDir'], lang('create_php_info'), 'class="btn btn-primary"'),
+                anchor('web_server/sites/set_owner_to_apache/' . $info['ShareDir'], lang('set_owner_to_apache'), 'class="btn btn-primary"')
             )
         );
     }
@@ -106,16 +106,18 @@ foreach ($sites as $site => $info) {
 
     $item['title'] = $site;
     $item['action'] = '/app/web_server/sites/edit/' . $site;
+//    $item['aliases'] =;
     $item['anchors'] = $detail_buttons;
     $item['details'] = array(
         $web_site,
         $access,
         $info['ShareGroup'],
+        $info['WebServerAlias']
     );
 
     $items[] = $item;
 }
-
+//var_dump($items);die;
 ///////////////////////////////////////////////////////////////////////////////
 // Summary table
 ///////////////////////////////////////////////////////////////////////////////
