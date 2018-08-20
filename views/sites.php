@@ -66,7 +66,6 @@ foreach ($sites as $site => $info) {
     ///////////////////////////////////////////////////////////////////////////
     // Tweak buttons for default site
     ///////////////////////////////////////////////////////////////////////////
-    
     $edit_link = $info['WebCustomConfiguration'] ? 'edit_custom' : 'edit';
 
     if ($info['WebDefaultSite']) {
@@ -82,8 +81,10 @@ foreach ($sites as $site => $info) {
                 anchor_delete('/app/web_server/sites/delete/' . $site, 'high'),
                 anchor('web_server/sites/create_user_ini/' . $info['ShareDir'], lang('create_user_ini'), 'class="btn btn-primary"'),
                 anchor('web_server/sites/create_php_info/' . $info['ShareDir'], lang('create_php_info'), 'class="btn btn-primary"'),
-                anchor('web_server/sites/set_owner_to_apache/' . $info['ShareDir'], lang('set_owner_to_apache'), 'class="btn btn-primary"')
+                anchor('web_server/sites/set_owner_to_apache/' . $info['ShareDir'], lang('set_owner_to_apache'), 'class="btn btn-primary"'),
+                anchor('web_server/sites/visit_website/' . $info['Name'], lang('visit_website'), 'class="btn btn-primary"')
             )
+
         );
     }
     ///////////////////////////////////////////////////////////////////////////

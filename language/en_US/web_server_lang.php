@@ -37,3 +37,4 @@ $lang['set_owner_to_apache'] = 'Set owner to apache';
 $lang['success_message'] = 'Success!';
 $lang['error_message'] = 'Error!';
 $lang['powered_by'] = 'Powered by';
+$lang['visit_website'] = 'Visit Website';

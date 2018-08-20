@@ -197,6 +197,11 @@ class Sites extends ClearOS_Controller
 
     }
 
+    function visit_website($domain_name)
+    {
+//        var_dump($domain_name);die;
+        redirect("https://".$domain_name);
+    }
     /**
      * Edit view.
      *
